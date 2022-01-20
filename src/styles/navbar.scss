@@ -1,0 +1,107 @@
+nav {
+  height: 100vh;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #444c63;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+  }
+
+  .space {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .account {
+      border: 1px solid #00b5f9;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      padding: 10px 5px 10px 5px;
+      width: 80%;
+
+      a {
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        width: 100%;
+        padding: 10px 4px 10px 1px;
+      }
+
+      .fas {
+        color: #00b5f9;
+      }
+    }
+
+    .vieta {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 15px;
+      padding: 5px;
+      margin-bottom: 50px;
+
+      .info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 15px;
+
+        a {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+    h4 {
+      color: #fff;
+      padding-right: 30px;
+    }
+    .bi {
+      color: #00b5f9;
+    }
+  }
+
+  .listas {
+    list-style-type: none;
+    margin: 10px;
+    li {
+      .far {
+        color: #00b5f9;
+        font-size: 17px;
+        width: 15px;
+        height: 15px;
+      }
+      .fas {
+        color: #00b5f9;
+        font-size: 17px;
+        width: 15px;
+        height: 15px;
+      }
+      margin: 15px 0 15px 0;
+      a {
+        font-size: 17px;
+        text-decoration: none;
+        padding: 10px;
+        margin: 10px;
+        color: #8d96b3;
+        transition: 0.2s;
+      }
+      a:hover {
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.acc-src {
+  position: relative;
+  top: 0;
+  left: 200px;
+  min-width: 100%;
+
+  .laukelis {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    min-width: 100%;
+
+    .fas {
+      font-size: 25px;
+      color: rgb(204, 204, 204);
+      padding-right: 10px;
+    }
+
+    #paieska {
+      min-width: 100%;
+    }
+  }
+}
