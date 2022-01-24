@@ -11,6 +11,7 @@ const sync = require("browser-sync").create();
 const minify = require("gulp-minify");
 const imageminJpegtran = require("imagemin-jpegtran");
 const webp = require("gulp-webp");
+const jeditor = require("gulp-json-editor");
 
 function html() {
   return src("src/**.html")
@@ -40,6 +41,15 @@ function scss() {
 function pic() {
   return src("src/img/**.{jpeg,jpg,gif,png}").pipe(dest("ready/img"));
 }
+function fotoFailai() {
+  return src("src/fotoFailai/**.{jpeg,jpg,gif,png}").pipe(
+    dest("ready/fotoFailai")
+  );
+}
+
+function json() {
+  return src("src/js/**.json").pipe(dest("ready/js"));
+}
 
 function jsmini() {
   return src("src/js/*.js", "src/js/*.mjs")
@@ -64,8 +74,12 @@ function serve() {
   watch("src/parts/**.html", series(html)).on("change", sync.reload);
   watch("src/styles/**.scss", series(scss)).on("change", sync.reload);
   watch("src/img/**.{jpeg,jpg,gif}", series(pic)).on("change", sync.reload);
+  watch("src/js/**.js", series(jsmini)).on("change", sync.reload);
+  watch("src/js/**.json", series(json)).on("change", sync.reload);
 }
 
-exports.start = series(clear, html, jsmini, scss, pic, serve);
+exports.start = series(clear, html, jsmini, fotoFailai, json, scss, pic, serve);
 
-exports.reload = series(html, scss, jsmini, pic, serve);
+exports.reload = series(html, scss, jsmini, fotoFailai, json, pic, serve);
+
+exports.delete = series(clear);

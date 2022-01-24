@@ -1,15 +1,34 @@
 .acc-src {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 200px;
-  min-width: 100%;
+  right: 0;
+  max-width: 80%;
+  min-width: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .loginas {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 20px;
+
+    .bell {
+      margin-right: 10px;
+      .far {
+        color: #00b5f9;
+      }
+    }
+  }
 
   .laukelis {
     display: flex;
+    width: 60%;
     flex-direction: row;
     margin: 20px;
-    min-width: 100%;
-
+    align-items: center;
     .fas {
       font-size: 25px;
       color: rgb(204, 204, 204);
@@ -17,7 +36,11 @@
     }
 
     #paieska {
-      min-width: 100%;
+      width: 60%;
+      height: 40px;
+      color: #fff;
+      border: none;
+      padding: 5px;
     }
   }
 }

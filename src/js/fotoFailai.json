@@ -1,0 +1,19 @@
+{
+  "foto": [
+    {
+      "vieta": "fotoFailai/file_1.png",
+      "vardas": "file_1.png",
+      "dydis": "25 MB"
+    },
+    {
+      "vieta": "fotoFailai/file_2.png",
+      "vardas": "file_1.png",
+      "dydis": "25 MB"
+    },
+    {
+      "vieta": "fotoFailai/file_3.png",
+      "vardas": "file_1.png",
+      "dydis": "25 MB"
+    }
+  ]
+}

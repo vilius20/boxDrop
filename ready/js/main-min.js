@@ -1,0 +1,1 @@
+$(document).ready(function(){$.getJSON("js/fotoFailai.json",function(o){var i="";$.each(o.foto,function(){i+='<li><img src= "'+this.vieta+'"></li>'}),$("#foto").append(i)})});
