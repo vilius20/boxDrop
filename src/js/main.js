@@ -47,5 +47,5 @@ function createImg(imgsrc) {
   let img = document.createElement("img");
   img.setAttribute("src", imgsrc);
   img.className = "img";
-  return img;
+  return img;.
 }
