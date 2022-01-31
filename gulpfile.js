@@ -55,7 +55,7 @@ function jsmini() {
   return src("src/js/*.js", "src/js/*.mjs")
     .pipe(
       minify({
-        noSource: true,
+        // noSource: true,
       })
     )
     .pipe(dest("ready/js"));
