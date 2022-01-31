@@ -1,100 +1,64 @@
-// Modules
-// script import, module import, separate methods import
-// import { getValues, mapArray } from "./modules/helpers.js";
+// get input type file
+let file = document.getElementById("myfile");
+let columns = document.querySelectorAll(".column");
+// create array to store image tag
+let arrImg = [];
 
-const objArray = [
-  { name: "Apple", weight: 50, type: "fruit" },
-  { name: "Orange", weight: 75, type: "fruit" },
-  { name: "Pear", weight: 100, type: "fruit" },
-  { name: "Banana", weight: 125, type: "fruit" },
-  { name: "Cherry", weight: 150, type: "berry" },
-  { name: "Mango", weight: 175, type: "fruit" },
-  { name: "Cucumber", weight: 200, type: "vegetable" },
-];
+// event handler for input type file
+file.onchange = () => {
+  // get files from the selected folder
+  for (const key in file.files) {
+    const element = file.files[key];
+    if (element.type === "image/jpeg" || element.type === "image/png") {
+      // call minParent() function and obtain div which has minimun child nodes
+      let parent_column = minParent(columns);
 
-const images = [];
+      // call createImg() Function and append images one by one in the column div
+      let img = createImg(element.webkitRelativePath);
 
-// console.log(getValues(objArray, 'name'));
-// console.log(mapArray(objArray, 'type'));
+      // store images in the array for animation
+      arrImg[key] = img;
 
-// DOM - Document Object Model, BOM - Browser Object Model
-// getElementById
-// innerHTML
-// addEventListener
-
-// document.getElementById('file').addEventListener('change', function () {
-//   console.log(this.files);
-// })
-
-// ****************************
-// const render = (arr) => {
-//   let content = '';
-//   arr.forEach((image) => {
-//     content += `
-//       <div class="image-item">
-//         <div class="image" style="background-image: url(${image.path})"></div>
-//         <p>${image.name}</p>
-//         <p>${image.size}</p>
-//       </div>
-//     `
-//   })
-//   document.getElementById('content').innerHTML = content;
-// }
-
-// render(images);
-
-document.getElementById("uploadBtn").addEventListener("click", function () {
-  const images2 = [];
-  for (let i = 0; i < document.getElementById("file")?.files.length; i++) {
-    const element = document.getElementById("file")?.files[i];
-    console.log(element.name);
-    images2.push({
-      name: element.name,
-      size: element.size,
-      path: URL.createObjectURL(element),
-    });
+      // append images in the parent node
+      parent_column.appendChild(img);
+    }
   }
-  render(images2);
-});
-// ****************************
 
-const render = (arr) => {
-  arr?.forEach((element) => {
-    const imageItem = document.createElement("div");
-    const image = document.createElement("div");
-    const p1 = document.createElement("p");
-    const p2 = document.createElement("p");
-    p1.textContent = element.name;
-    p2.textContent = element.size;
-    imageItem.className = "image-item";
-    image.className = "image";
-    image.setAttribute("style", `background-image: url(${element.path})`);
-    imageItem.appendChild(image);
-    imageItem.appendChild(p1);
-    imageItem.appendChild(p2);
-    document.getElementById("content").appendChild(imageItem);
-  });
+  // create variable for index number
+  let i = 0;
+  let clearinter = setInterval(() => {
+    arrImg[i].setAttribute("style", "display : initial");
+    arrImg[i].classList.add("animated", "zoomIn");
+    i++;
+    // clear set interval when i is equal to array lenght
+    i == arrImg.length ? clearInterval(clearinter) : undefined;
+  }, 200);
 };
 
-render(images);
+// obtain parent node which has minimun child
+function minParent(parentNode) {
+  let arr = [];
 
-document.getElementById("removeChild").addEventListener("click", function () {
-  document
-    .getElementById("content")
-    .removeChild(document.getElementById("content").childNodes[0]);
+  // get the children of the parent nodes
+  parentNode.forEach((element, i) => {
+    arr[i] = element.children.length;
+  });
 
-  // const imageItem = document.createElement('div');
-  // imageItem.textContent = 'test';
-  // document.getElementById('content').replaceChild(imageItem, document.getElementById('content').childNodes[1]);
-});
-// textContent
-// createElement
-// setAttribute
-// removeAttribute
-// removeChild
-// appendChild
-// replaceChild
+  // get min number from array
+  let min = Math.min.apply(null, arr);
 
-// Failu ikelimas
-// Parasyti funkcija atskirame modulyje kuri konvertuos bitus i megabaitus
-// Kai failai rendirinasi persiraso size
+  // get parent which has min child nodes.
+  for (let i = 0; i < parentNode.length; i++) {
+    if (parentNode[i].children.length == min) {
+      return parentNode[i];
+    }
+  }
+}
+
+// create images with source attribute
+function createImg(imgsrc) {
+  let img = document.createElement("img");
+  img.setAttribute("src", imgsrc);
+  img.className = "img";
+  return img;
+}
