@@ -1,23 +1,25 @@
-const { src, dest, series, watch } = require("gulp");
-const gulp = require("gulp");
-const sass = require("gulp-sass")(require("sass"));
-const csso = require("gulp-csso");
-const include = require("gulp-file-include");
-const htmlmin = require("gulp-htmlmin");
-const del = require("del");
-const concat = require("gulp-concat");
-const autoprefixer = require("gulp-autoprefixer");
-const sync = require("browser-sync").create();
-const minify = require("gulp-minify");
-const imageminJpegtran = require("imagemin-jpegtran");
-const webp = require("gulp-webp");
-const jeditor = require("gulp-json-editor");
+const { src, dest, series, watch } = require('gulp');
+const gulp = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
+const csso = require('gulp-csso');
+const include = require('gulp-file-include');
+const htmlmin = require('gulp-htmlmin');
+const del = require('del');
+const concat = require('gulp-concat');
+const autoprefixer = require('gulp-autoprefixer');
+const sync = require('browser-sync').create();
+const minify = require('gulp-minify');
+const imageminJpegtran = require('imagemin-jpegtran');
+const webp = require('gulp-webp');
+const jeditor = require('gulp-json-editor');
+const connect = require('gulp-connect-php');
+const browserSync = require('browser-sync');
 
 function html() {
-  return src("src/**.html")
+  return src('src/**.html')
     .pipe(
       include({
-        prefix: "@@",
+        prefix: '@@',
       })
     )
     .pipe(
@@ -26,56 +28,68 @@ function html() {
         removeComments: true,
       })
     )
-    .pipe(dest("ready"));
+    .pipe(dest('ready'));
 }
 
 function scss() {
-  return src("src/styles/**.scss")
+  return src('src/styles/**.scss')
     .pipe(sass())
-    .pipe(autoprefixer("last 2 versions"))
+    .pipe(autoprefixer('last 2 versions'))
     .pipe(csso())
-    .pipe(concat("style.css"))
-    .pipe(dest("ready"));
+    .pipe(concat('style.css'))
+    .pipe(dest('ready'));
 }
 
 function pic() {
-  return src("src/img/**.{jpeg,jpg,gif,png}").pipe(dest("ready/img"));
+  return src('src/img/**.{jpeg,jpg,gif,png}').pipe(dest('ready/img'));
 }
 function fotoFailai() {
-  return src("src/fotoFailai/**.{jpeg,jpg,gif,png}").pipe(
-    dest("ready/fotoFailai")
+  return src('src/fotoFailai/**.{jpeg,jpg,gif,png}').pipe(
+    dest('ready/fotoFailai')
   );
 }
 
 function json() {
-  return src("src/js/**.json").pipe(dest("ready/js"));
+  return src('src/js/**.json').pipe(dest('ready/js'));
 }
 
 function jsmini() {
-  return src("src/js/*.js", "src/js/*.mjs")
+  return src('src/js/*.js', 'src/js/*.mjs')
     .pipe(
       minify({
         // noSource: true,
       })
     )
-    .pipe(dest("ready/js"));
+    .pipe(dest('ready/js'));
 }
 
+// gulp.task('connect-sync', function () {
+//   connect.server({}, function () {
+//     browserSync({
+//       proxy: '127.0.0.1:8000',
+//     });
+//   });
+
+//   gulp.watch('src/php/*.php').on('change', function () {
+//     browserSync.reload();
+//   });
+// });
+
 async function clear() {
-  del("ready");
+  del('ready');
 }
 
 function serve() {
   sync.init({
-    server: "./ready",
+    server: './ready',
   });
 
-  watch("src/**.html", series(html)).on("change", sync.reload);
-  watch("src/parts/**.html", series(html)).on("change", sync.reload);
-  watch("src/styles/**.scss", series(scss)).on("change", sync.reload);
-  watch("src/img/**.{jpeg,jpg,gif}", series(pic)).on("change", sync.reload);
-  watch("src/js/**.js", series(jsmini)).on("change", sync.reload);
-  watch("src/js/**.json", series(json)).on("change", sync.reload);
+  watch('src/**.html', series(html)).on('change', sync.reload);
+  watch('src/parts/**.html', series(html)).on('change', sync.reload);
+  watch('src/styles/**.scss', series(scss)).on('change', sync.reload);
+  watch('src/img/**.{jpeg,jpg,gif}', series(pic)).on('change', sync.reload);
+  watch('src/js/**.js', series(jsmini)).on('change', sync.reload);
+  watch('src/js/**.json', series(json)).on('change', sync.reload);
 }
 
 exports.start = series(clear, html, jsmini, fotoFailai, json, scss, pic, serve);

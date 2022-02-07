@@ -1,27 +1,5 @@
-table,
-input {
-  width: 300px;
-  font-size: 17px;
-}
-table,
-th,
-td {
-  border: solid 1px #ddd;
-  border-collapse: collapse;
-  padding: 2px 3px;
-  text-align: center;
-}
-table img {
-  border: none;
-  width: 51px;
-  height: 51px;
-}
-
-#foto {
+.foto-f {
   position: absolute;
-  top: 100px;
-  left: 300px;
-  z-index: 10;
-  width: 1000px;
-  height: 1000px;
+  top: 150px;
+  left: 200px;
 }
