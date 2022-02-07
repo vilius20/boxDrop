@@ -1,43 +1,60 @@
-import {
-  getPosts,
-  deletePost,
-  getPost,
-  createPost,
-  patchPost,
-} from './userHelper.js';
+// fetch('https://jsonplaceholder.typicode.com/users')
+//   .then((data) => {
+//     // console.log(data);
+//     return data.json();
+//   })
+//   .then((all) => {
+//     let dataUseriai = '';
+//     all.map((values) => {
+//       dataUseriai += `
+//   <div>
+//   <li>VARDAS: ${values.name} <br> SLAPYVARDIS: ${values.username} <br> EL.PAŠTAS: ${values.email} <br> <a class="delete-item" href="#"><i class="far fa-trash-alt"></i></a></li>
+//   </div>
+//       `;
+//     });
+//     document.querySelector('.lenta').innerHTML = dataUseriai;
+//   });
 
-getPosts()
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+// // Pašalinimas
+// const sarasas = document.querySelector('.lenta');
 
-fetch('https://jsonplaceholder.typicode.com/users')
-  .then((data) => {
-    // console.log(data);
-    return data.json();
-  })
-  .then((all) => {
-    let dataUseriai = '';
-    all.map((values) => {
-      dataUseriai += ` 
-  <div>
-  <li>VARDAS: ${values.name} <br> SLAPYVARDIS: ${values.username} <br> EL.PAŠTAS: ${values.email} <br> <a class="delete-item" href="#"><i class="far fa-trash-alt"></i></a></li>
-  </div>
-      `;
-    });
-    document.querySelector('.lenta').innerHTML = dataUseriai;
-  });
+// loadEventListeners();
 
-// Pašalinimas
-const sarasas = document.querySelector('.lenta');
+// function loadEventListeners() {
+//   sarasas.addEventListener('click', pasalinti);
+// }
 
-loadEventListeners();
+// function pasalinti(e) {
+//   if (e.target.parentElement.classList.contains('delete-item')) {
+//     e.target.parentElement.parentElement.remove();
+//   }
+// }
 
-function loadEventListeners() {
-  sarasas.addEventListener('click', pasalinti);
+// ************************************************
+
+let form = document.querySelector('#upload');
+let file = document.querySelector('#file');
+let app = document.querySelector('#app');
+
+function logFile(e) {
+  e.preventDefault();
+  let str = event.target.result;
+  let img = document.createElement('img');
+  img.src = str;
+  app.append(img);
+  console.log(str);
 }
 
-function pasalinti(e) {
-  if (e.target.parentElement.classList.contains('delete-item')) {
-    e.target.parentElement.parentElement.remove();
-  }
+function handleSubmit(e) {
+  e.preventDefault();
+
+  if (!file.value.length) return;
+
+  let reader = new FileReader();
+
+  reader.onload = logFile;
+
+  reader.readAsDataURL(file.files[0]);
 }
+
+form.addEventListener('submit', handleSubmit);
