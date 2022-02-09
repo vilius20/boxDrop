@@ -38,7 +38,7 @@ let app = document.querySelector('#app');
 
 function logFile(e) {
   e.preventDefault();
-  let str = event.target.result;
+  let str = e.target.result;
   let img = document.createElement('img');
   img.src = str;
   app.append(img);
@@ -57,4 +57,9 @@ function handleSubmit(e) {
   reader.readAsDataURL(file.files[0]);
 }
 
-form.addEventListener('submit', handleSubmit);
+function logas(e) {
+  e.preventDefault();
+  console.log(logFile());
+}
+
+form.addEventListener('submit', logas);
